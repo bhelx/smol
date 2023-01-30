@@ -33,7 +33,13 @@ class Logger {
 // }
 
 function readByteCode() {
-  return fs.readFileSync(argv[2])
+  const buffer = fs.readFileSync(argv[2])
+  const len = Buffer.byteLength(buffer) / 4
+  let out = new Int32Array(len)
+  for (let i = 0; i < len; i++) {
+    out[i] = buffer.readInt32BE(i * 4)
+  }
+  return out
 }
 
 function getKeyPress(){

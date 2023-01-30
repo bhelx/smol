@@ -9,19 +9,18 @@ const logger = new Logger()
 const I = {
   CONST: 1,
   ADD: 2,
-  SUB: 3,
-  MUL: 4,
-  EMIT: 5,
-  HALT: 6,
-  CALL: 7,
-  RETURN: 8,
-  JNZ: 9,
-  JMP: 10,
-  STORE: 11,
-  LOAD: 12,
-  DUP: 13,
-  SWAP: 14,
-  KEY: 15,
+  MUL: 3,
+  EMIT: 4,
+  HALT: 5,
+  CALL: 6,
+  RETURN: 7,
+  JNZ: 8,
+  JMP: 9,
+  STORE: 10,
+  LOAD: 11,
+  DUP: 12,
+  SWAP: 13,
+  KEY: 14,
 };
 
 function smol(code) {
@@ -52,13 +51,6 @@ function smol(code) {
           const op1 = stack.pop()
           const op2 = stack.pop()
           stack.push(op1 * op2)
-          break
-        }
-        case I.SUB: {
-          const op1 = stack.pop()
-          const op2 = stack.pop()
-          logger.log(`SUB ${op1} ${op2}`)
-          stack.push(op2 - op1)
           break
         }
         case I.EMIT: {

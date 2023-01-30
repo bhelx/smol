@@ -23,8 +23,8 @@ fib:
 
     ; decrement count
     load count
-    const 1
-    sub
+    const -1
+    add
     dup
     store count
 

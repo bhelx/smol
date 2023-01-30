@@ -1,20 +1,21 @@
+#bits 32
+
 #ruledef
 {
-    const {value} => 0x01 @ value`8
-    add => 0x02
-    sub => 0x03
-    mul => 0x04
-    emit => 0x05
-    halt => 0x06
-    call {value} => 0x07 @ value`8
-    return => 0x08
-    jnz  {address} => 0x09 @ address`8
-    jmp  {address} => 0x0a @ address`8
-    store {address} => 0x0b @ address`8
-    load {address} => 0x0c @ address`8
-    dup => 0x0d
-    swap => 0x0e
-    key => 0x0f
+    const {value: i32} => 0x00000001 @ value
+    add => 0x00000002
+    mul => 0x00000003
+    emit => 0x00000004
+    halt => 0x00000005
+    call {value} => 0x00000006 @ value`32
+    return => 0x00000007
+    jnz  {address} => 0x00000008 @ address`32
+    jmp  {address} => 0x00000009 @ address`32
+    store {address} => 0x0000000a @ address`32
+    load {address} => 0x0000000b @ address`32
+    dup => 0x0000000c
+    swap => 0x0000000d
+    key => 0x0000000e
 }
 
 ; You need a _start to jump to
