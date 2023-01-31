@@ -23,19 +23,17 @@ and [customasm](https://github.com/hlorenzi/customasm) if you want to write prog
 in assembly. *Note*: you can write them in raw bytecode form.
 
 ```
-# compile with customasm
-# fib.asm computes fibonacci number of 10
-
 customasm asm/fib.asm -o asm/fib.smol
-# => customasm v0.11.15 (aarch64-apple-darwin)
-# => assembling `asm/fib.asm`...
-# => writing `asm/fib.smol`...
-# => success after 1 iteration
+customasm asm/hello_world.asm -o asm/hello_world.smol
 
 # run with node
 
 node vm1.js asm/fib.smol
 # => 55
+
+node vm2.js asm/hello_world.smol
+# => Hello World!
+# => 
 ```
 
 
