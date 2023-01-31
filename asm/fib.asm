@@ -6,7 +6,8 @@ fib:
   count = 1
 
   ; store this in count
-  store count
+  const count
+  store
 
   ; start the sequence with [0, 1]
   const 0
@@ -15,28 +16,34 @@ fib:
   .loop:
     ; store the second n but preserve stack
     dup
-    store n2
+    const n2
+    store
 
     add
-    load n2
+    const n2
+    load
     swap
 
     ; decrement count
-    load count
+    const count
+    load
     const -1
     add
     dup
-    store count
+    const count
+    store
 
     ; jump back to loop if we have not hit zero
     jnz .loop
 
-  load n2
+  const n2
+  load
   return
 
-  
+
 _start:
   const 10
   call fib
   emit
   halt
+

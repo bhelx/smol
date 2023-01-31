@@ -2,6 +2,7 @@ const {
   readByteCode,
   Logger,
   getKeyPress,
+  createMemory,
 } = require("./lib")
 
 const logger = new Logger()
@@ -23,42 +24,45 @@ const I = {
   KEY: 14,
 };
 
-function smol(code) {
+const STACK_SIZE = 32
+
+function smol(m) {
+  const memory = m.memory
+  const heap_start = m.code_len
+
   let ip = 0
-  const stack = []
-  const returnStack = []
-  const memory = []
-  logger.log(Array.from(code))
+  let sp = memory.length 
+  let rsp = memory.length - STACK_SIZE
+  logger.log(memory)
 
   async function run() {
-    while (ip < code.length) {
-      const instruction = code[ip++]
+    while (true) {
+      const instruction = memory[ip++]
       switch (instruction) {
         case I.CONST: {
-          const op_value = code[ip++]
+          const op_value = memory[ip++]
           logger.log(`CONST ${op_value}`)
-          stack.push(op_value)
+          memory[--sp] = op_value
           break
         }
         case I.ADD: {
-          const op1 = stack.pop()
-          const op2 = stack.pop()
+          const op1 = memory[sp++]
+          const op2 = memory[sp++]
           logger.log(`ADD ${op1} ${op2}`)
-          stack.push(op1 + op2)
+          memory[--sp] = op1 + op2
           break
         }
         case I.MUL: {
-          const op1 = stack.pop()
-          const op2 = stack.pop()
-          stack.push(op1 * op2)
+          const op1 = memory[sp++]
+          const op2 = memory[sp++]
+          logger.log(`MUL ${op1} ${op2}`)
+          memory[--sp] = op1 * op2
           break
         }
         case I.EMIT: {
-          const value = stack.pop()
+          const value = memory[sp++]
           logger.log(`EMIT ${value}`)
-          // TODO should emit the char
-          //process.stdout.write(String.fromCharCode(value))
-          console.log(value)
+          process.stdout.write(String.fromCharCode(value))
           break
         }
         case I.HALT: {
@@ -66,20 +70,20 @@ function smol(code) {
           return
         }
         case I.CALL: {
-          let jmpto = code[ip]
+          let jmpto = memory[ip]
           logger.log(`CALL ${jmpto}`)
-          returnStack.push(ip + 1)
+          memory[--rsp] = ip + 1
           ip = jmpto
           break
         }
         case I.RETURN: {
           logger.log("RETURN")
-          ip = returnStack.pop()
+          ip = memory[rsp++]
           break
         }
         case I.JNZ: {
-          const op_address = code[ip++]
-          const value = stack.pop()
+          const op_address = memory[ip++]
+          const value = memory[sp++]
           logger.log(`JNZ ${op_address} ${value}`)
           if (value !== 0) {
             ip = op_address
@@ -87,40 +91,41 @@ function smol(code) {
           break
         }
         case I.JMP: {
-          const op_address = code[ip++]
+          const op_address = memory[ip++]
           logger.log(`JMP ${op_address}`)
           ip = op_address
           break
         }
         case I.STORE: {
-          const address = code[ip++]
-          const value = stack.pop()
+          const address = memory[sp++]
+          const value = memory[sp++]
           logger.log(`STORE ${address} ${value}`)
-          memory[address] = value
+          memory[heap_start + address] = value
           break
         }
         case I.LOAD: {
-          const address = code[ip++]
+          const address = memory[sp++]
           logger.log(`LOAD ${address}`)
-          stack.push(memory[address])
+          memory[--sp] = memory[heap_start + address]
           break
         }
         case I.DUP: {
           logger.log("DUP")
-          stack.push(stack[stack.length-1])
+          let top = memory[sp]
+          memory[--sp] = top
           break
         }
         case I.SWAP: {
           logger.log("SWAP")
-          const top = stack.pop()
-          const nxt = stack.pop()
-          stack.push(top)
-          stack.push(nxt)
+          const top = memory[sp++]
+          const nxt = memory[sp++]
+          memory[--sp] = top
+          memory[--sp] = nxt
           break
         }
         case I.KEY: {
           let key = await getKeyPress()
-          stack.push(key)
+          memory[--sp] = key
           break
         }
         default:
@@ -131,10 +136,9 @@ function smol(code) {
 
   return {
     run,
-  };
+  }
 }
 
-const code = readByteCode()
-let vm = smol(code)
+let vm = smol(createMemory())
 vm.run()
 

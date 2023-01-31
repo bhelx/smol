@@ -11,8 +11,8 @@
     return => 0x00000007
     jnz  {address} => 0x00000008 @ address`32
     jmp  {address} => 0x00000009 @ address`32
-    store {address} => 0x0000000a @ address`32
-    load {address} => 0x0000000b @ address`32
+    store => 0x0000000a
+    load => 0x0000000b
     dup => 0x0000000c
     swap => 0x0000000d
     key => 0x0000000e
