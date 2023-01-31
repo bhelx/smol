@@ -8,7 +8,7 @@ const {
 const logger = new Logger()
 
 const I = {
-  CONST: 1,
+  PUSH: 1,
   ADD: 2,
   MUL: 3,
   EMIT: 4,
@@ -28,20 +28,20 @@ const STACK_SIZE = 32
 
 function smol(m) {
   const memory = m.memory
-  const heap_start = m.code_len
 
   let ip = 0
   let sp = memory.length 
   let rsp = memory.length - STACK_SIZE
   logger.log(memory)
+  logger.log(memory.slice(255, 300))
 
   async function run() {
     while (true) {
       const instruction = memory[ip++]
       switch (instruction) {
-        case I.CONST: {
+        case I.PUSH: {
           const op_value = memory[ip++]
-          logger.log(`CONST ${op_value}`)
+          logger.log(`PUSH ${op_value}`)
           memory[--sp] = op_value
           break
         }
@@ -100,13 +100,13 @@ function smol(m) {
           const address = memory[sp++]
           const value = memory[sp++]
           logger.log(`STORE ${address} ${value}`)
-          memory[heap_start + address] = value
+          memory[address] = value
           break
         }
         case I.LOAD: {
           const address = memory[sp++]
           logger.log(`LOAD ${address}`)
-          memory[--sp] = memory[heap_start + address]
+          memory[--sp] = memory[address]
           break
         }
         case I.DUP: {

@@ -7,7 +7,7 @@ const {
 const logger = new Logger()
 
 const I = {
-  CONST: 1,
+  PUSH: 1,
   ADD: 2,
   MUL: 3,
   EMIT: 4,
@@ -34,9 +34,9 @@ function smol(code) {
     while (ip < code.length) {
       const instruction = code[ip++]
       switch (instruction) {
-        case I.CONST: {
+        case I.PUSH: {
           const op_value = code[ip++]
-          logger.log(`CONST ${op_value}`)
+          logger.log(`PUSH ${op_value}`)
           stack.push(op_value)
           break
         }

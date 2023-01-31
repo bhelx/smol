@@ -2,7 +2,7 @@
 
 #ruledef
 {
-    const {value: i32} => 0x00000001 @ value
+    push {value: i32} => 0x00000001 @ value
     add => 0x00000002
     mul => 0x00000003
     emit => 0x00000004
