@@ -1,7 +1,5 @@
 #include "smol.asm"
 
-hello_world_string = 0xff
-
 ; takes the address to the string on the stack
 print_str:
   .loop:
@@ -31,10 +29,7 @@ _start:
   halt
     
 
-#addr hello_world_string
-#d utf32be("Hello World!\0")
+hello_world_string:
+  #d utf32be("Hello World!\0")
   
-  
-
-
 
