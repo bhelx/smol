@@ -1,7 +1,6 @@
 const {
   readByteCode,
   Logger,
-  getKeyPress,
 } = require("./lib")
 
 const logger = new Logger()
@@ -20,7 +19,6 @@ const I = {
   LOAD: 11,
   DUP: 12,
   SWAP: 13,
-  KEY: 14,
 };
 
 function smol(code) {
@@ -116,11 +114,6 @@ function smol(code) {
           const nxt = stack.pop()
           stack.push(top)
           stack.push(nxt)
-          break
-        }
-        case I.KEY: {
-          let key = await getKeyPress()
-          stack.push(key)
           break
         }
         default:

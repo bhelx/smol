@@ -14,7 +14,9 @@ but changes would be considered if they do not add much cognitive load.
 
 I'm considering the idea of making advancements to the VM a step at a time and
 incrementing the version number. They should be roughly backwards compatible but
-add new capabilities and tricks along the way. Right now I have vm1 and vm2.
+add new capabilities and tricks along the way.
+
+Right now I have [v1](/v1) and [v2](/v2).
 
 # Using
 
@@ -23,20 +25,21 @@ and [customasm](https://github.com/hlorenzi/customasm) if you want to write prog
 in assembly. *Note*: you can write them in raw bytecode form.
 
 ```
-customasm asm/fib.asm -o asm/fib.smol
-customasm asm/hello_world.asm -o asm/hello_world.smol
+customasm v1/asm/fib.asm -o v1/bin/fib.smol
+customasm v2/asm/hello_world.asm -o v2/bin/hello_world.smol
+customasm v2/asm/guess.asm -o v2/bin/guess.smol
 
 # run with node
 
-node vm1.js asm/fib.smol
+node v1/vm.js v1/bin/fib.smol
 # => 55
 
-node vm2.js asm/hello_world.smol
+node v2/vm.js v2/bin/hello_world.smol
 # => Hello World!
 # => 
 
 
-node vm2.js asm/guess.smol
+node v2/vm.js v2/bin/guess.smol
 Input Guess: 1
 Incorrect! Try again!
 Input Guess: 4
