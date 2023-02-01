@@ -34,6 +34,15 @@ node vm1.js asm/fib.smol
 node vm2.js asm/hello_world.smol
 # => Hello World!
 # => 
+
+
+node vm2.js asm/guess.smol
+Input Guess: 1
+Incorrect! Try again!
+Input Guess: 4
+Incorrect! Try again!
+Input Guess: 7
+Correct!
 ```
 
 
