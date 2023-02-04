@@ -6,7 +6,7 @@ javascript arrays. This gives you nice methods like pop() and push() and makes t
 
 I'd recommend going to the end of [vm.js](vm.js) and writing some programs by hand before you try the assembler.
 
-```
+```javascript
 // comment out the part that reads code from the input file
 //const code = readByteCode()
 
