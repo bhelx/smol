@@ -1,5 +1,4 @@
 const {
-  readByteCode,
   Logger,
   getKeyPress,
   createMemory,

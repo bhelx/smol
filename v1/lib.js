@@ -12,26 +12,12 @@ class Logger {
   }
 }
 
-// this is helpful for development but keeping them as arrays
-// in the name of simplicity
-// class Stack {
-//   constructor() {
-//     this.data = []
-//   }
-//   push(n) {
-//     if (this.data.length >= 32) throw Error('Stack Overflow Error')
-//     this.data.push(n)
-//   }
-//   pop() {
-//     if (this.data.length == 0) throw Error('Stack Underflow Error')
-//     return this.data.pop()
-//   }
-//   last() {
-//     if (this.data.length == 0) throw Error('Stack Underflow Error')
-//     return this.data[this.data.length-1]
-//   }
-// }
-
+/**
+ * Reads the file passed in to arg[2] from the command line.
+ * In order to support 32 bit numbers, we are making our minimum
+ * size 32 bits. We read the file 4 bytes at a time since readFile
+ * presents them to us as 8-bit bytes. 
+ */
 function readByteCode() {
   const buffer = fs.readFileSync(argv[2])
   const len = Buffer.byteLength(buffer) / 4

@@ -12,40 +12,13 @@ to understand as possible. Layers can be added with software written
 in assembly or its own language. Performance and capabilities are not important,
 but changes would be considered if they do not add much cognitive load.
 
-I'm considering the idea of making advancements to the VM a step at a time and
-incrementing the version number. They should be roughly backwards compatible but
-add new capabilities and tricks along the way.
+I'm trying to make small advancements to the VM one step at a time starting with v1.
+V1 is designed to be as easy to understand as follow. Things will get a little more complicated
+as it evolves, but they should be bite sized steps.
 
-Right now I have [v1](/v1) and [v2](/v2).
+See the Readme for each version:
 
-# Using
-
-For now you need [node.js](https://nodejs.org/en/) to run the VM
-and [customasm](https://github.com/hlorenzi/customasm) if you want to write programs 
-in assembly. *Note*: you can write them in raw bytecode form.
-
-```
-customasm v1/asm/fib.asm -o v1/bin/fib.smol
-customasm v2/asm/hello_world.asm -o v2/bin/hello_world.smol
-customasm v2/asm/guess.asm -o v2/bin/guess.smol
-
-# run with node
-
-node v1/vm.js v1/bin/fib.smol
-# => 55
-
-node v2/vm.js v2/bin/hello_world.smol
-# => Hello World!
-# => 
-
-
-node v2/vm.js v2/bin/guess.smol
-Input Guess: 1
-Incorrect! Try again!
-Input Guess: 4
-Incorrect! Try again!
-Input Guess: 7
-Correct!
-```
+* [v1](v1/)
+* [v2](v2/)
 
 
