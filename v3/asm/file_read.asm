@@ -31,7 +31,7 @@ _start:
 
   push 0x01
   push 0   ; position
-  push 11   ; buf len
+  push 12   ; buf len
   push outbuff ; buffptr
   ;push 0x00 ; stdin
   call open_file ; push fd
@@ -50,7 +50,7 @@ _start:
 
 
 hello_file:
-  #d utf32be("/tmp/hello.txt\0")
+  #d utf32be("./hello.txt\0")
   
 flags:
   #d utf32be("rs\0")
