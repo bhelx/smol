@@ -97,7 +97,9 @@ async function sysCall(memory, code, ...args) {
       const [wfd, buffptr, len, position] = args
       const buffer = memory.slice(buffptr, buffptr+len)
       const write = util.promisify(fs.write)
+      console.log({wfd, buffer, len, position})
       const result = await write(wfd, buffer, 0, len, position)
+      console.log(result)
       return [result.bytesWritten]
     case 0x03:
       const [cfd] = args
