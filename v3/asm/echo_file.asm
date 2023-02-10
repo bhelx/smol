@@ -18,21 +18,6 @@ open_output_file:
   sys_call
   return
 
-; takes the address to the string on the stack
-; warning, only works because we know 0 padding
-print_str:
-  .loop:
-    dup
-    load 
-    dup
-    emit
-    swap
-    push 1
-    add
-    swap
-    jnz .loop
-  return
-
 _start:
 
   push 0x01
@@ -42,9 +27,6 @@ _start:
   call open_input_file ; push fd
   push 4 ; 4 arguments
   sys_call ; pushes num bytes read on the stack
-
-  push buff_ptr
-  call print_str
 
   push 0x02
   push 0 ; position
