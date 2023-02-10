@@ -28,19 +28,6 @@ function createMemory() {
   }
 }
 
-function getKeyPress(){
-  return new Promise(resolve => {
-    process.stdin.setRawMode(true)
-    process.stdin.setEncoding('utf8')
-    process.stdin.resume()
-    process.stdin.once('data',k => {
-      process.stdin.setRawMode(false)
-      process.stdin.pause()
-      resolve(k.charCodeAt())
-    })
-  })
-}
-
 async function readStdin(buffer) {
   process.stdin.setRawMode(true)
   process.stdin.setEncoding('utf8')
@@ -56,6 +43,10 @@ async function readStdin(buffer) {
   process.stdin.setRawMode(false)
   process.stdin.pause()
   return Buffer.byteLength(buffer)
+}
+
+async function writeStdout(buffer) {
+  process.stdout.write(buffer)
 }
 
 
@@ -83,11 +74,10 @@ async function sysCall(memory, code, ...args) {
       const [fd, buffptr, len, position] = args
       let bytesRead = null
       const buffer = Buffer.alloc(len)
-      if (fd === 0) {
+      if (fd === process.stdin.fd) {
         bytesRead = await readStdin(buffer)
       } else {
-        const read = util.promisify(fs.read)
-        const result = await read(fd, buffer, 0, len, position)
+        const result = fs.readSync(fd, buffer, 0, len, position)
         bytesRead = result.bytesRead
       }
       memory.set(buffer, buffptr)
@@ -96,9 +86,15 @@ async function sysCall(memory, code, ...args) {
     case 0x02: // write
       const [wfd, buffptr, len, position] = args
       const buffer = new Uint8Array(memory.slice(buffptr, buffptr+len))
-      const write = util.promisify(fs.write)
-      const result = await write(wfd, buffer, 0, len, position)
-      return [result.bytesWritten]
+      let bytesWritten = null
+      if (wfd === process.stdout.fd) {
+        writeStdout(buffer)
+      } else {
+        const write = util.promisify(fs.write)
+        const result = await write(wfd, buffer, 0, len, position)
+        bytesWritten = result.bytesWritten
+      }
+      return [bytesWritten]
     case 0x03:
       const [cfd] = args
       fs.closeSync(cfd)
@@ -111,7 +107,6 @@ async function sysCall(memory, code, ...args) {
 module.exports = {
   Logger,
   createMemory,
-  getKeyPress,
   sysCall,
 }
 

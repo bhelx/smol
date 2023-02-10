@@ -1,6 +1,5 @@
 const {
   Logger,
-  getKeyPress,
   createMemory,
   sysCall,
 } = require("./lib")
@@ -11,18 +10,16 @@ const I = {
   PUSH: 1,
   ADD: 2,
   MUL: 3,
-  EMIT: 4,
-  HALT: 5,
-  CALL: 6,
-  RETURN: 7,
-  JNZ: 8,
-  JMP: 9,
-  STORE: 10,
-  LOAD: 11,
-  DUP: 12,
-  SWAP: 13,
-  KEY: 14,
-  SYS_CALL: 15,
+  HALT: 4,
+  CALL: 5,
+  RETURN: 6,
+  JNZ: 7,
+  JMP: 8,
+  STORE: 9,
+  LOAD: 10,
+  DUP: 11,
+  SWAP: 12,
+  SYS_CALL: 13,
 };
 
 const STACK_SIZE = 32
@@ -58,12 +55,6 @@ function smol(m) {
           const op2 = memory[sp++]
           logger.log(`MUL ${op1} ${op2}`)
           memory[--sp] = op1 * op2
-          break
-        }
-        case I.EMIT: {
-          const value = memory[sp++]
-          logger.log(`EMIT ${value}`)
-          process.stdout.write(String.fromCharCode(value))
           break
         }
         case I.HALT: {
@@ -122,11 +113,6 @@ function smol(m) {
           const nxt = memory[sp++]
           memory[--sp] = top
           memory[--sp] = nxt
-          break
-        }
-        case I.KEY: {
-          const key = await getKeyPress()
-          memory[--sp] = key
           break
         }
         case I.SYS_CALL:
