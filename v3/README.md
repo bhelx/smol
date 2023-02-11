@@ -58,7 +58,7 @@ data:
 ### Code 0x03 Close
 
 ```asm
-push 0x03     ; 2 is for close
+push 0x03     ; 3 is for close
 push fd       ; a file descriptor for open file
 push 1        ; all sys calls must specify the numbe of args on the top of the stack
 sys_call
