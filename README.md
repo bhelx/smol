@@ -21,7 +21,8 @@ To run the assembler, you need [customasm](https://github.com/hlorenzi/customasm
 
 See the Readme for each version:
 
-* [v1](v1/)
-* [v2](v2/)
+* [v1 Simple starting point](v1/)
+* [v2 Create unified memory architecture](v2/)
+* [v3 Add a syscall interface](v3/)
 
 
