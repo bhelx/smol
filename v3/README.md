@@ -17,7 +17,7 @@ sys_call
 
 ; leaves the file descriptor on the stack
 
-flags:
+read_flags:
   #d utf32be("rs\0")
 
 file_path:
