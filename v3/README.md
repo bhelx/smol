@@ -1,6 +1,6 @@
 # v3
 
-v3 adds a sys call interface. Still a work in progress but right now you can open, close, and read files. We also removed `KEY` and `EMIT` 
+v3 adds a sys call interface. Still a work in progress but right now you can open, close, read, and write to file descriptors. We also removed `KEY` and `EMIT` 
 since we can read and write to stdout through the syscall interface.
 
 ## SYS_CALLs
