@@ -56,15 +56,15 @@ hello_world_string:
 
 
 ```bash
-customasm v2/asm/hello_world.asm -o v2/bin/hello_world.smol
-customasm v2/asm/guess.asm -o v2/bin/guess.smol
+customasm asm/hello_world.asm -o bin/hello_world.smol
+customasm asm/guess.asm -o bin/guess.smol
 
-node v2/vm.js v2/bin/hello_world.smol
+node vm.js bin/hello_world.smol
 # => Hello World!
 # => 
 
 
-node v2/vm.js v2/bin/guess.smol
+node vm.js bin/guess.smol
 #=> Input Guess: 1
 #=> Incorrect! Try again!
 #=> Input Guess: 4

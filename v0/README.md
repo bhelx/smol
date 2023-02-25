@@ -1,7 +1,8 @@
-# v1
+# v0
 
-v1 is meant to be the first working implementation with a turing complete ISA. The stack, return stack, memory, and code are still kept in separate
-javascript arrays. We will unify the memory in v2.
+v0 is meant to be the simplest instructions needed to add 2 numbers and print. The stack, return stack, memory, and code are all kept in separate
+javascript arrays. This gives you nice methods like pop() and push() and makes the logic very clear. We will eventually get to unifying the memory
+in v2.
 
 
 I'd recommend going to the end of [vm.js](vm.js) and writing some programs by hand before you try the assembler.
@@ -19,8 +20,7 @@ const code = [
   I.ADD,
   I.EMIT
 ]
-let vm = smol(code)
-vm.run()
+smol(code)
 ```
 
 ```bash
@@ -32,9 +32,9 @@ When you are ready to look at assembly you can compile and run like this:
 
 ```bash
 # compile
-customasm asm/fib.asm -o bin/fib.smol
+customasm asm/add.asm -o bin/add.smol
 
 # run
-node vm.js bin/fib.smol
-# => 55
+node vm.js v1/bin/add.smol
+# => 42
 ```

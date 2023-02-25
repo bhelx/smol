@@ -127,13 +127,7 @@ function smol(code) {
   };
 }
 
-//const code = readByteCode()
-const code = [
-  I.PUSH, 20,
-  I.PUSH, 22,
-  I.ADD,
-  I.EMIT
-]
+const code = readByteCode()
 let vm = smol(code)
 vm.run()
 

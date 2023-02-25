@@ -31,7 +31,6 @@ function smol(m) {
   let sp = memory.length 
   let rsp = memory.length - STACK_SIZE
   logger.log(memory)
-  logger.log(memory.slice(255, 300))
 
   async function run() {
     while (true) {
