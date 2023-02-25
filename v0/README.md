@@ -1,9 +1,8 @@
 # v0
 
-v0 is meant to be the simplest instructions needed to add 2 numbers and print. The stack, return stack, memory, and code are all kept in separate
+v0 is meant to be the simplest instructions needed to add 2 numbers and print. The stack and code kept in separate
 javascript arrays. This gives you nice methods like pop() and push() and makes the logic very clear. We will eventually get to unifying the memory
 in v2.
-
 
 I'd recommend going to the end of [vm.js](vm.js) and writing some programs by hand before you try the assembler.
 
