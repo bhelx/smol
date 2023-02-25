@@ -8,9 +8,6 @@ in v2.
 I'd recommend going to the end of [vm.js](vm.js) and writing some programs by hand before you try the assembler.
 
 ```javascript
-// comment out the part that reads code from the input file
-//const code = readByteCode()
-
 // code can just be an array of ints
 // this small program pushes 2 numbers onto the stack
 // adds and prints it
