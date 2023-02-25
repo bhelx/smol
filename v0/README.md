@@ -35,6 +35,6 @@ When you are ready to look at assembly you can compile and run like this:
 customasm asm/add.asm -o bin/add.smol
 
 # run
-node vm.js v1/bin/add.smol
+node vm.js bin/add.smol
 # => 42
 ```
