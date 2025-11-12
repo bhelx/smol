@@ -1,5 +1,8 @@
 # Smol
 
+> *Note*: See [the video](https://www.youtube.com/watch?v=D7GxyHxyYA8) where I live code this project
+> as the first talk for [below-c-level](https://belowclevel.org).
+
 *Smol* is a tiny virtual machine for education.
 
 The overall goal is to demystify virtual machines and encourage developers to dig lower
